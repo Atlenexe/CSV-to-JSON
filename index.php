@@ -17,6 +17,8 @@
 
         <?php
 
+        require_once("assets/functions/convert.php");
+
         //Vérification de si le fichier est uploadé
         if (isset($_FILES['csvFile'])) {
 
@@ -28,24 +30,7 @@
                 //On récupère le contenu du fichier en string
                 $uploadedFileContentString = file_get_contents($_FILES['csvFile']['tmp_name']);
 
-                //On sépare chaque ligne pour les mettre dans un tableau
-                $rowsContentArray = array_map("str_getcsv", explode("\n", $uploadedFileContentString));
-
-                //Récupération du nom des colonnes
-                $columnsNamesArray = $rowsContentArray[0];
-
-                $resultArray = [];
-
-                //Pour chaque ligne du CSV (sauf la première)
-                foreach ($rowsContentArray as $key => $row) {
-                    //On skip la première ligne qui est le nom des colonnes
-                    if ($key !== 0) {
-                        //Attribution du contenu pour chaque colonne
-                        foreach ($columnsNamesArray as $columnKey => $columnName) {
-                            $resultArray[$key - 1][$columnName] = $row[$columnKey];
-                        }
-                    }
-                }
+                $resultArray = convertCsvToArray($uploadedFileContentString);
 
                 var_dump($json = json_encode($resultArray));
             }
