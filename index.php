@@ -32,7 +32,20 @@
 
                 $resultArray = convertCsvToArray($uploadedFileContentString);
 
-                var_dump($json = json_encode($resultArray));
+                if (isset($resultArray)) {
+
+                    $filePath = "jsons";
+                    $fileName = str_replace(".csv", "", $uploadedFile['name']);
+                    $jsonFile = $filePath . "/" . $fileName . ".json";
+
+                    file_put_contents($jsonFile, json_encode($resultArray));
+
+                    echo '<p>Le fichier CSV a bien été converti en Json. <a href="' . $jsonFile . '" target="_blank">Télécharger le fichier JSON.</a></p>';
+                } else {
+                    echo "<p>Un problème est survenu lors de la conversion.</p>";
+                }
+            } else {
+                echo "<p>Le fichier envoyé n'est pas un CSV.</p>";
             }
         }
         ?>
