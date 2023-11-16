@@ -28,7 +28,7 @@
             if ($uploadedFile['type'] === "text/csv") {
 
                 //On récupère le contenu du fichier en string
-                $uploadedFileContentString = file_get_contents($_FILES['csvFile']['tmp_name']);
+                $uploadedFileContentString = file_get_contents($uploadedFile['tmp_name']);
 
                 $resultArray = convertCsvToArray($uploadedFileContentString);
 
