@@ -16,29 +16,26 @@ class Converter
         $type = $file['type'];
 
         //Initialisation de la variable résultat
-        $jsonArray = [];
+        $jsonRes = "";
 
         //Vérification du type de fichier afin d'appeller les bonnes méthodes
         switch ($type) {
 
                 //Si XML
             case "text/xml":
-                var_dump('xml');
-                $jsonArray = Xml::convert($uploadedFileContentString);
+                $jsonRes = Xml::convert($uploadedFileContentString);
                 break;
 
                 //Si Csv
             case "text/csv":
-                var_dump('csv');
-                $jsonArray = Csv::convert($uploadedFileContentString);
+                $jsonRes = Csv::convert($uploadedFileContentString);
                 break;
 
                 //Sinon
             default:
-                var_dump('rien');
                 break;
         }
 
-        return json_encode($jsonArray);
+        return $jsonRes;
     }
 }

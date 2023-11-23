@@ -4,7 +4,7 @@ require_once("assets/interfaces/ConverterInterface.php");
 
 class Csv implements ConverterInterface
 {
-    public static function convert(string $content): array
+    public static function convert(string $content): string
     {
         //On sépare chaque ligne pour les mettre dans un tableau
         $rowsContentArray = array_map("str_getcsv", explode("\n", $content));
@@ -25,6 +25,9 @@ class Csv implements ConverterInterface
             }
         }
 
-        return $resultArray;
+        //Conversion tableau vers Json
+        $jsonRes = json_encode($resultArray);
+
+        return $jsonRes;
     }
 }
