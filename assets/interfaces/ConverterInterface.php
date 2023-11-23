@@ -2,5 +2,5 @@
 
 interface ConverterInterface
 {
-    public static function convert(string $content): string;
+    public static function convert(string $content): string|false;
 }

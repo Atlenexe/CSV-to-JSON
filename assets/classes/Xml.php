@@ -4,7 +4,7 @@ require_once("assets/interfaces/ConverterInterface.php");
 
 class Xml implements ConverterInterface
 {
-    public static function convert(string $content): string
+    public static function convert(string $content): string|false
     {
         //Récupération du contenu du fichier Xml
         $xml = $content;
@@ -12,9 +12,14 @@ class Xml implements ConverterInterface
         //Conversion Xml (en string) vers un tableau
         $xmlArray = simplexml_load_string($xml);
 
-        //Conversion tableau vers Json
-        $jsonRes = json_encode($xmlArray);
+        $result = false;
 
-        return $jsonRes;
+        //Gestion des erreurs
+        if ($xmlArray) {
+            //Conversion tableau vers Json
+            $result = json_encode($xmlArray);
+        }
+
+        return $result;
     }
 }

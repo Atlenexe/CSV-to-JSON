@@ -10,7 +10,7 @@ class Converter
 
     private string $filesDirectory = "convertedFiles";
 
-    public function convert(array $file): string
+    public function convert(array $file): string|false
     {
 
         //Récupération du contenu du fichier
@@ -20,21 +20,27 @@ class Converter
         $type = $file['type'];
 
         //Initialisation de la variable résultat
-        $jsonRes = "";
+        $result = false;
 
         //Vérification du type de fichier afin d'appeller les bonnes méthodes
         switch ($type) {
 
                 //Si XML
             case "text/xml":
-                $jsonRes = Xml::convert($uploadedFileContentString);
-                $this->saveFile($file, $jsonRes);
+                $result = Xml::convert($uploadedFileContentString);
+
+                if ($result) {
+                    $this->saveFile($file, $result);
+                }
                 break;
 
                 //Si Csv
             case "text/csv":
-                $jsonRes = Csv::convert($uploadedFileContentString);
-                $this->saveFile($file, $jsonRes);
+                $result = Csv::convert($uploadedFileContentString);
+
+                if ($result) {
+                    $this->saveFile($file, $result);
+                }
                 break;
 
                 //Sinon
@@ -42,7 +48,7 @@ class Converter
                 break;
         }
 
-        return $jsonRes;
+        return $result;
     }
 
     public function setFinalFilePath(array $file): string

@@ -28,16 +28,21 @@
             $converter = new Converter();
 
             //On convertit le fichier en json
-            $res = $converter->convert($uploadedFile);
-
-            //Récupération du nom du fichier enregistré
-            $jsonFilePath = $converter->jsonFilePath;
+            $conversionResult = $converter->convert($uploadedFile);
 
             //Récupération du type du fichier d'origine
             $originFileType = $converter->originFileType;
 
-            //Affichage du message de conversion réussie
-            echo '<p>Le fichier ' . $originFileType . ' a bien été converti en Json. <a href="' . $jsonFilePath . '" target="_blank">Télécharger le fichier JSON.</a></p>';
+            if ($conversionResult) {
+                //Récupération du nom du fichier enregistré
+                $jsonFilePath = $converter->jsonFilePath;
+
+                //Affichage du message de conversion réussie
+                echo '<p>Le fichier ' . $originFileType . ' a bien été converti en Json. <a href="' . $jsonFilePath . '" target="_blank">Télécharger le fichier JSON.</a></p>';
+            } else {
+                //Affichage du message de conversion échouée
+                echo '<p>Le fichier ' . $originFileType . ' n\'a pas pû être correctement converti en Json. Veuillez réessayer avec un fichier conforme.</p>';
+            }
         } else {
             echo '<p>Veuillez choisir un fichier Xml ou Csv.</p>';
         }
