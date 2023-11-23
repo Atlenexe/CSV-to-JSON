@@ -1,6 +1,8 @@
 <?php
 
-class Csv
+require_once("assets/interfaces/ConverterInterface.php");
+
+class Csv implements ConverterInterface
 {
     public static function convert(string $content): array
     {

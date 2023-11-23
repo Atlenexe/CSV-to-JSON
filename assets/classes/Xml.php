@@ -1,8 +1,10 @@
 <?php
 
-class Xml
+require_once("assets/interfaces/ConverterInterface.php");
+
+class Xml implements ConverterInterface
 {
-    public static function convert(): array
+    public static function convert(string $content): array
     {
         return [];
     }
