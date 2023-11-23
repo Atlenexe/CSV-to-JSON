@@ -1,5 +1,7 @@
 # Convertisseur CSV/XML vers Json
 
+Évaluation PHP ECV Nantes 2023
+
 ## But du convertisseur
 
 Ce convertisseur réalisé en PHP permet à l'utilisateur de convertir un certain type de fichier (en l'occurence des fichiers en **.csv** et en **.xml**) vers un fichier en **.json**.
