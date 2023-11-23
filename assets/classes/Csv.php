@@ -12,6 +12,7 @@ class Csv implements ConverterInterface
         //Récupération du nom des colonnes
         $columnsNamesArray = $rowsContentArray[0];
 
+        //Initialisation de la variable résultat tableau
         $resultArray = [];
 
         //Pour chaque ligne du CSV (sauf la première)
