@@ -5,6 +5,9 @@ require_once("Csv.php");
 
 class Converter
 {
+    public string $originFileType = "";
+    public string $jsonFilePath = "";
+
     private string $filesDirectory = "convertedFiles";
 
     public function convert(array $file): string
@@ -42,12 +45,18 @@ class Converter
         return $jsonRes;
     }
 
+    public function setFinalFilePath(array $file): string
+    {
+        $this->originFileType = str_replace("text/", "", $file['type']);
+        $fileName = str_replace("." . $this->originFileType, "", $file['name']);
+        $this->jsonFilePath = $this->filesDirectory . "/" . $fileName . ".json";
+
+        return $this->jsonFilePath;
+    }
+
     private function saveFile(array $file, string $jsonString): void
     {
-        $type = str_replace("text/", "", $file['type']);
-        $fileName = str_replace("." . $type, "", $file['name']);
-        $jsonFile = $this->filesDirectory . "/" . $fileName . ".json";
-
-        file_put_contents($jsonFile, $jsonString);
+        $this->setFinalFilePath($file);
+        file_put_contents($this->jsonFilePath, $jsonString);
     }
 }
