@@ -18,6 +18,8 @@
         <?php
         require_once("assets/classes/Converter.php");
 
+        session_start();
+
         //Vérification de si le fichier est uploadé
         if (isset($_FILES['uploadedFile'])) {
 
@@ -37,8 +39,10 @@
                 //Récupération du nom du fichier enregistré
                 $jsonFilePath = $converter->jsonFilePath;
 
+                $_SESSION['lastConversionFile'] = $converter->jsonFilePath;
+
                 //Affichage du message de conversion réussie
-                echo '<p>Le fichier ' . $originFileType . ' a bien été converti en Json. <a href="' . $jsonFilePath . '" target="_blank">Télécharger le fichier JSON.</a></p>';
+                echo '<p>Le fichier ' . $originFileType . ' a bien été converti en Json. <a href="assets/functions/download.php" target="_blank">Télécharger le fichier JSON.</a></p>';
             } else {
                 //Affichage du message de conversion échouée
                 echo '<p>Le fichier ' . $originFileType . ' n\'a pas pû être correctement converti en Json. Veuillez réessayer avec un fichier conforme.</p>';
